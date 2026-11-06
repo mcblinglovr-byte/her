@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="app.js" defer></script>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>things that remind me of you</title>
+        <style>
+            :root {
+                --pink: #f7c8d8;
+                --pink-deep: #d96a8f;
+                --green: #b8d8b0;
+                --green-deep: #4a7c59;
+                --cream: #fffaf8;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 3rem 1.5rem;
+                min-height: 100vh;
+                background: linear-gradient(160deg, var(--cream) 0%, var(--pink) 55%, var(--green) 100%);
+                font-family: Georgia, "Times New Roman", serif;
+                color: var(--green-deep);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            main {
+                max-width: 32rem;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.72);
+                border: 1px solid var(--pink-deep);
+                border-radius: 18px;
+                padding: 2.5rem 2rem;
+                box-shadow: 0 12px 40px rgba(74, 124, 89, 0.15);
+            }
+
+            h1 {
+                margin: 0 0 0.25rem;
+                font-size: clamp(1.6rem, 5vw, 2.4rem);
+                font-weight: normal;
+                letter-spacing: 0.02em;
+                color: var(--pink-deep);
+                text-align: center;
+            }
+
+            .subtitle {
+                margin: 0 0 2rem;
+                text-align: center;
+                font-style: italic;
+                font-size: 0.95rem;
+                color: var(--green-deep);
+                opacity: 0.75;
+            }
+
+            ul,
+            ol {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            li {
+                padding: 0.85rem 0 0.85rem 2rem;
+                position: relative;
+                font-size: 1.1rem;
+                line-height: 1.5;
+                border-bottom: 1px dashed rgba(217, 106, 143, 0.35);
+            }
+
+            li:last-child {
+                border-bottom: none;
+            }
+
+            li::before {
+                content: "✿";
+                position: absolute;
+                left: 0;
+                color: var(--green-deep);
+                opacity: 0.8;
+            }
+
+            footer {
+                margin-top: 2rem;
+                text-align: center;
+                font-size: 0.8rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--pink-deep);
+                opacity: 0.7;
+            }
+
+            .btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    background: var(--pink-deep);
+    color: var(--cream);
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.btn:hover {
+    background: var(--green-deep);
+    transform: translateY(-2px);
+}
+
+        </style>
+    </head>
+    <body>
+        <title>things that remind me of you</title>
+        <main>
+            <h1>things that remind me of you</h1>
+            <p class="subtitle">there are a lot of things that remind ME of YOU, but here are a few:</p>
+            <ol>
+                <li>living things</li>
+                <li>the color pink</li>
+                <li>cherries</li>
+                <li>roses and carnations</li>
+                <li>Olivia Rodrigo</li>
+                <li>"we fell in love in october"</li>
+                <li>midnight</li>
+                <li>thinking</li>
+                <li>the smell of green tea</li>
+                <li>colorful spirals</li>
+                <li>butterflies</li>
+            </ol>
+         <a href="music.html" class="btn">play music</a>
+
+
+
+            <footer>November 2026</footer>
+        </main>
+    </body>
+</html>
+
+

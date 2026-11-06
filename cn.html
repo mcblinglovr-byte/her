@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="app.js" defer></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>more soon to come</h1>
+    <a href="music.html" class="btn">go back</a>
+</body>
+<style >
+    :root {
+        --pink: #f7c8d8;
+        --pink-deep: #d96a8f;
+        --green: #b8d8b0;
+        --green-deep: #4a7c59;
+        --cream: #fffaf8;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 3rem 1.5rem;
+        min-height: 100vh;
+        background: linear-gradient(160deg, var(--cream) 0%, var(--pink) 55%, var(--green) 100%);
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--green-deep);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .btn {
+                display: inline-block;
+                padding: 0.75rem 1.75rem;
+                background: var(--pink-deep);
+                color: var(--cream);
+                text-decoration: none;
+                border-radius: 999px;
+                font-size: 1rem;
+                letter-spacing: 0.04em;
+                transition: background 0.25s ease, transform 0.25s ease;
+            }
+
+            .btn:hover {
+                background: var(--green-deep);
+                transform: translateY(-2px);
+            }
+</style>
+
+</html>
