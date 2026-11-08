@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>how well do you know us</title>
+        <style>
+            :root {
+                --pink: #f7c8d8;
+                --pink-deep: #d96a8f;
+                --green: #b8d8b0;
+                --green-deep: #4a7c59;
+                --cream: #fffaf8;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 2rem 1.25rem;
+                min-height: 100vh;
+                background: linear-gradient(160deg, var(--cream) 0%, var(--pink) 55%, var(--green) 100%);
+                font-family: Georgia, "Times New Roman", serif;
+                color: var(--green-deep);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            main {
+                max-width: 32rem;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.75);
+                border: 1px solid var(--pink-deep);
+                border-radius: 18px;
+                padding: 2.5rem 2rem;
+                box-shadow: 0 12px 40px rgba(74, 124, 89, 0.15);
+            }
+
+            h1 {
+                margin: 0 0 0.25rem;
+                font-size: clamp(1.5rem, 5vw, 2.2rem);
+                font-weight: normal;
+                color: var(--pink-deep);
+                text-align: center;
+            }
+
+            .subtitle {
+                margin: 0 0 2rem;
+                text-align: center;
+                font-style: italic;
+                font-size: 0.9rem;
+                opacity: 0.75;
+            }
+
+            .progress {
+                text-align: center;
+                font-size: 0.8rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--pink-deep);
+                opacity: 0.7;
+                margin-bottom: 1.25rem;
+            }
+
+            .question {
+                font-size: 1.15rem;
+                line-height: 1.5;
+                margin: 0 0 1.5rem;
+            }
+
+            .answers {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .answer {
+                display: block;
+                width: 100%;
+                padding: 0.9rem 1.1rem;
+                background: var(--cream);
+                border: 1px solid var(--pink-deep);
+                border-radius: 12px;
+                font-family: inherit;
+                font-size: 1rem;
+                color: var(--green-deep);
+                text-align: left;
+                cursor: pointer;
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+
+            .answer:hover:not(:disabled) {
+                background: var(--pink);
+                transform: translateX(4px);
+            }
+
+            .answer:disabled {
+                cursor: default;
+            }
+
+            .answer.correct {
+                background: var(--green);
+                border-color: var(--green-deep);
+            }
+
+            .answer.wrong {
+                background: var(--pink);
+                border-color: var(--pink-deep);
+                opacity: 0.7;
+            }
+
+            .reaction {
+                margin-top: 1.25rem;
+                text-align: center;
+                font-style: italic;
+                font-size: 0.95rem;
+                color: var(--pink-deep);
+                min-height: 1.5rem;
+            }
+
+            .result {
+                text-align: center;
+            }
+
+            .result .score {
+                font-size: 2.5rem;
+                color: var(--pink-deep);
+                margin: 0.5rem 0;
+            }
+
+            .result .message {
+                font-style: italic;
+                line-height: 1.6;
+                margin: 1rem 0 2rem;
+            }
+
+            .btn {
+                display: inline-block;
+                padding: 0.75rem 1.75rem;
+                background: var(--pink-deep);
+                color: var(--cream);
+                text-decoration: none;
+                border: none;
+                border-radius: 999px;
+                font-family: inherit;
+                font-size: 1rem;
+                letter-spacing: 0.04em;
+                cursor: pointer;
+                transition: background 0.25s ease, transform 0.25s ease;
+            }
+
+            .btn:hover {
+                background: var(--green-deep);
+                transform: translateY(-2px);
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>how well do you know us</h1>
+            <p class="subtitle">no pressure. okay, a little pressure.</p>
+
+            <div id="quiz">
+                <p class="progress" id="progress"></p>
+                <p class="question" id="question"></p>
+                <div class="answers" id="answers"></div>
+                <p class="reaction" id="reaction"></p>
+            </div>
+
+            <div id="result" class="result hidden">
+                <p class="progress">the results are in</p>
+                <p class="score" id="finalScore"></p>
+                <p class="message" id="finalMessage"></p>
+                <button class="btn" id="again">try again</button>
+            </div>
+
+            <p style="text-align: center; margin: 2rem 0 0;">
+                <a href="index.html" class="btn">go back</a>
+            </p>
+        </main>
+
+        <script>
+            // ---- your questions ----
+            // correct: the index of the right answer (0 = first one)
+            const questions = [
+                {
+                    q: "what makes me think of you?",
+                    answers: ["life", "music", "the color pink", "midnight"],
+                    correct: 0,
+                    right: "life. all of it. that's the answer.",
+                    wrong: "it's life. everything, honestly."
+                },
+                {
+                    q: "what do I do when I miss you?",
+                    answers: ["scroll my phone", "listen to music and code", "sleep it off", "text you"],
+                    correct: 1,
+                    right: "music and code. that's my whole night.",
+                    wrong: "music and code. usually at the same time."
+                },
+                {
+                    q: "name a thing I wanna do with you",
+                    answers: ["picnic", "movies", "cheesecake factory", "all three"],
+                    correct: 3,
+                    right: "all three. I've thought about it.",
+                    wrong: "trick question — all three."
+                },
+                {
+                    q: "a song that reminds me of you?",
+                    answers: ["we fell in love in october", "ill call you mine by girl in red", "something by Olivia Rodrigo", "all of them"],
+                    correct: 1,
+                    right: "ill call you mine. every time it comes on.",
+                    wrong: "ill call you mine by girl in red. that one."
+                }
+            ];
+
+            // ---- state ----
+            let current = 0;
+            let score = 0;
+            let locked = false;
+
+            // ---- elements ----
+            const quizBox = document.getElementById("quiz");
+            const resultBox = document.getElementById("result");
+            const progressEl = document.getElementById("progress");
+            const questionEl = document.getElementById("question");
+            const answersEl = document.getElementById("answers");
+            const reactionEl = document.getElementById("reaction");
+            const finalScoreEl = document.getElementById("finalScore");
+            const finalMessageEl = document.getElementById("finalMessage");
+            const againBtn = document.getElementById("again");
+
+            // ---- render one question ----
+            function showQuestion() {
+                locked = false;
+                const item = questions[current];
+
+                progressEl.textContent = "question " + (current + 1) + " of " + questions.length;
+                questionEl.textContent = item.q;
+                reactionEl.textContent = "";
+                answersEl.innerHTML = "";
+
+                item.answers.forEach((text, index) => {
+                    const btn = document.createElement("button");
+                    btn.className = "answer";
+                    btn.textContent = text;
+                    btn.addEventListener("click", () => pick(index, btn));
+                    answersEl.appendChild(btn);
+                });
+            }
+
+            // ---- handle an answer ----
+            function pick(index, btn) {
+                if (locked) return;
+                locked = true;
+
+                const item = questions[current];
+                const buttons = answersEl.querySelectorAll(".answer");
+                buttons.forEach(b => (b.disabled = true));
+
+                if (index === item.correct) {
+                    score++;
+                    btn.classList.add("correct");
+                    reactionEl.textContent = item.right;
+                } else {
+                    btn.classList.add("wrong");
+                    buttons[item.correct].classList.add("correct");
+                    reactionEl.textContent = item.wrong;
+                }
+
+                setTimeout(() => {
+                    current++;
+                    if (current < questions.length) {
+                        showQuestion();
+                    } else {
+                        showResult();
+                    }
+                }, 1400);
+            }
+
+            // ---- result screen ----
+            function showResult() {
+                quizBox.classList.add("hidden");
+                resultBox.classList.remove("hidden");
+
+                finalScoreEl.textContent = score + " / " + questions.length;
+
+                let message;
+                if (score === questions.length) {
+                    message = "perfect. you've been paying attention. I noticed.";
+                } else if (score >= questions.length - 1) {
+                    message = "almost all of them. the one you missed is something I'll just have to tell you.";
+                } else if (score >= questions.length / 2) {
+                    message = "not bad. half of it you already knew, and the rest I'll fill in.";
+                } else {
+                    message = "you got some of them. that's fine — I'll keep reminding you.";
+                }
+
+                finalMessageEl.textContent = message;
+            }
+
+            // ---- restart ----
+            againBtn.addEventListener("click", () => {
+                current = 0;
+                score = 0;
+                resultBox.classList.add("hidden");
+                quizBox.classList.remove("hidden");
+                showQuestion();
+            });
+
+            // ---- go ----
+            showQuestion();
+        </script>
+    </body>
+</html>
